@@ -1,0 +1,34 @@
+name: retaildw-next
+##############################################################################
+# Isolated SQL Server for the next workshop edition.
+#
+# The port is bound to 127.0.0.1 only - the instance is never reachable from
+# the network. The credential is required from the private deployment/.env.
+##############################################################################
+services:
+  sql:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    container_name: retaildw-next-sql
+    environment:
+      ACCEPT_EULA: "Y"
+      # SQL Server 2025 renamed the free Developer PID; "Developer" is no longer valid.
+      MSSQL_PID: EnterpriseDeveloper
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD:?Set MSSQL_SA_PASSWORD in deployment/.env}"
+    ports:
+      - "127.0.0.1:14331:1433"
+    volumes:
+      - ./mssql.conf:/var/opt/mssql/mssql.conf:ro
+      - retaildw-next-data:/var/opt/mssql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q 'SELECT 1' || exit 1",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+
+volumes:
+  retaildw-next-data:

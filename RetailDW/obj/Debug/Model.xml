@@ -1,0 +1,5358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataSchemaModel FileFormatVersion="1.2" SchemaVersion="2.9" DspName="Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider" CollationLcid="1045" CollationCaseSensitive="False" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+	<Header>
+		<CustomData Category="AnsiNulls">
+			<Metadata Name="AnsiNulls" Value="True" />
+		</CustomData>
+		<CustomData Category="QuotedIdentifier">
+			<Metadata Name="QuotedIdentifier" Value="True" />
+		</CustomData>
+		<CustomData Category="CompatibilityMode">
+			<Metadata Name="CompatibilityMode" Value="160" />
+		</CustomData>
+		<CustomData Category="SqlCmdVariables" Type="SqlCmdVariable" />
+	</Header>
+	<Model>
+		<Element Type="SqlDatabaseOptions">
+			<Property Name="Collation" Value="SQL_Latin1_General_CP1_CI_AS" />
+			<Property Name="IsAnsiNullDefaultOn" Value="True" />
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Property Name="IsAnsiWarningsOn" Value="True" />
+			<Property Name="IsArithAbortOn" Value="True" />
+			<Property Name="IsConcatNullYieldsNullOn" Value="True" />
+			<Property Name="IsTornPageProtectionOn" Value="False" />
+			<Property Name="IsFullTextEnabled" Value="True" />
+			<Property Name="PageVerifyMode" Value="3" />
+			<Property Name="DefaultLanguage" Value="" />
+			<Property Name="DefaultFullTextLanguage" Value="" />
+			<Property Name="QueryStoreStaleQueryThreshold" Value="367" />
+			<Relationship Name="DefaultFilegroup">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[PRIMARY]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlCheckConstraint" Name="[dbo].[CK_DimStore_Channel]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[[Channel] IN (N'STORE', N'ONLINE')]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[DimStore].[Channel]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="3" />
+		</Element>
+		<Element Type="SqlCheckConstraint" Name="[dbo].[CK_LoadLog_Status]">
+			<Property Name="CheckExpressionScript">
+				<Value><![CDATA[[Status] IN (N'RUNNING', N'SUCCEEDED', N'FAILED')]]></Value>
+			</Property>
+			<Relationship Name="CheckExpressionDependencies">
+				<Entry>
+					<References Name="[dbo].[LoadLog].[Status]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[LoadLog]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="4" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_DimProduct_IsActive]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(1)]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[DimProduct].[IsActive]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="5" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_LoadLog_StartedAt]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(SYSUTCDATETIME())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[LoadLog]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[LoadLog].[StartedAt]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="6" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[dbo].[DF_LoadLog_Status]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(N'RUNNING')]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[LoadLog]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[dbo].[LoadLog].[Status]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="7" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[DimDate]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[DateKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[Date]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[Year]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[smallint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[Quarter]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[Month]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[MonthName]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[YearMonth]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="7" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[IsoYear]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[smallint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[IsoWeek]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[YearWeek]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="8" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[DayOfWeek]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[tinyint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[DayName]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[IsWeekend]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimDate].[Season]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="8" />
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[DimDate].[IX_DimDate_YearWeek]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[DimDate].[YearWeek]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[DimDate].[UX_DimDate_Date]">
+			<Property Name="IsUnique" Value="True" />
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[DimDate].[Date]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[DimProduct]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[ProductKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[SKU]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[StyleCode]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[StyleName]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[Department]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[Category]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[Color]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[Size]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="5" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[ListPrice]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[UnitCost]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimProduct].[IsActive]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bit]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="5" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="9" />
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[DimProduct].[IX_DimProduct_StyleCode]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[StyleCode]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IncludedColumns">
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Department]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Size]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[DimProduct].[UX_DimProduct_SKU]">
+			<Property Name="IsUnique" Value="True" />
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[SKU]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[DimStore]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimStore].[StoreKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimStore].[StoreCode]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimStore].[StoreName]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimStore].[City]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimStore].[Region]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="50" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimStore].[Channel]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimStore].[Format]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimStore].[SalesAreaM2]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimStore].[OpenedDate]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[DimStore].[RemodelDate]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="10" />
+			<AttachedAnnotation Disambiguator="3" />
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[DimStore].[UX_DimStore_StoreCode]">
+			<Property Name="IsUnique" Value="True" />
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[DimStore].[StoreCode]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[FactInventoryDaily]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactInventoryDaily].[InventoryKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactInventoryDaily].[DateKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactInventoryDaily].[ProductKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactInventoryDaily].[StoreKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactInventoryDaily].[StockQuantity]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactInventoryDaily].[LoadId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="11" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="12" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="13" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="14" />
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[FactInventoryDaily].[IX_FactInventoryDaily_DateKey]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[FactInventoryDaily].[DateKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IncludedColumns">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[StockQuantity]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[FactReturns]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactReturns].[ReturnKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactReturns].[DateKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactReturns].[ProductKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactReturns].[StoreKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactReturns].[ReturnNo]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactReturns].[TransactionNo]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactReturns].[Quantity]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactReturns].[ReturnAmount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="12" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactReturns].[ReturnReason]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactReturns].[LoadId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="15" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="16" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="17" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="18" />
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[FactReturns].[IX_FactReturns_DateKey]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[FactReturns].[DateKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IncludedColumns">
+				<Entry>
+					<References Name="[dbo].[FactReturns].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[ReturnAmount]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[FactReturns]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[FactSales]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[SalesKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[DateKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[ProductKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[StoreKey]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[TransactionNo]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[LineNumber]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[Quantity]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[UnitPrice]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[DiscountAmount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[GrossAmount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="12" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[NetAmount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="12" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[UnitCost]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[FactSales].[LoadId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="19" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="20" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="21" />
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="22" />
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[FactSales].[IX_FactSales_DateKey]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[FactSales].[DateKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IncludedColumns">
+				<Entry>
+					<References Name="[dbo].[FactSales].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[GrossAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[NetAmount]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[FactSales].[IX_FactSales_ProductKey]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[FactSales].[ProductKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlIndex" Name="[dbo].[FactSales].[IX_FactSales_TransactionNo]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[FactSales].[TransactionNo]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FactInventoryDaily_DimDate]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[DateKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="12" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FactInventoryDaily_DimProduct]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[ProductKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="13" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FactInventoryDaily_DimStore]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[StoreKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="14" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FactReturns_DimDate]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[FactReturns].[DateKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactReturns]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="16" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FactReturns_DimProduct]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[FactReturns].[ProductKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactReturns]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="17" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FactReturns_DimStore]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[FactReturns].[StoreKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactReturns]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="18" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FactSales_DimDate]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[FactSales].[DateKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="20" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FactSales_DimProduct]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[FactSales].[ProductKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="21" />
+		</Element>
+		<Element Type="SqlForeignKeyConstraint" Name="[dbo].[FK_FactSales_DimStore]">
+			<Relationship Name="Columns">
+				<Entry>
+					<References Name="[dbo].[FactSales].[StoreKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignColumns">
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreKey]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForeignTable">
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="22" />
+		</Element>
+		<Element Type="SqlTable" Name="[dbo].[LoadLog]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[LoadLog].[LoadId]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[LoadLog].[PackageName]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[LoadLog].[StartedAt]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="3" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime2]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="6" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[LoadLog].[FinishedAt]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="3" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime2]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[LoadLog].[Status]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="7" />
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[LoadLog].[RowsRead]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[LoadLog].[RowsLoaded]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[LoadLog].[RowsRejected]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[dbo].[LoadLog].[ErrorMessage]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="4000" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="23" />
+			<AttachedAnnotation Disambiguator="4" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_DimDate]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[DimDate].[DateKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="8" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_DimProduct]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[ProductKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="9" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_DimStore]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[DimStore].[StoreKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="10" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_FactInventoryDaily]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[FactInventoryDaily].[InventoryKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="11" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_FactReturns]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[FactReturns].[ReturnKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactReturns]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="15" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_FactSales]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[FactSales].[SalesKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="19" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[dbo].[PK_LoadLog]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[dbo].[LoadLog].[LoadId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[dbo].[LoadLog]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="23" />
+		</Element>
+		<Element Type="SqlSchema" Name="[etl]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlProcedure" Name="[etl].[LoadInventory]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+
+    DECLARE @LoadId INT, @RowsRead INT, @RowsLoaded INT, @RowsRejected INT;
+
+    INSERT INTO [dbo].[LoadLog] ([PackageName]) VALUES (N'etl.LoadInventory');
+    SET @LoadId = CAST(SCOPE_IDENTITY() AS INT);
+
+    BEGIN TRY
+        SELECT @RowsRead = COUNT(*) FROM [src].[InventoryRaw];
+
+        DELETE FROM [dbo].[FactInventoryDaily];
+        DELETE FROM [stg].[Inventory];
+
+        INSERT INTO [stg].[Inventory]
+            ([SnapshotDate], [SKU], [StoreCode], [StockQuantity], [SourceFile], [LoadId])
+        SELECT  TRY_CAST(r.[SnapshotDate] AS DATE),
+                r.[SKU],
+                r.[StoreCode],
+                TRY_CAST(r.[StockQuantity] AS INT),
+                r.[SourceFile],
+                @LoadId
+        FROM    [src].[InventoryRaw] AS r
+        WHERE   TRY_CAST(r.[SnapshotDate]  AS DATE) IS NOT NULL
+            AND r.[SKU]                             IS NOT NULL
+            AND r.[StoreCode]                       IS NOT NULL
+            AND TRY_CAST(r.[StockQuantity] AS INT)  IS NOT NULL;
+
+        INSERT INTO [dbo].[FactInventoryDaily]
+            ([DateKey], [ProductKey], [StoreKey], [StockQuantity], [LoadId])
+        SELECT  d.[DateKey],
+                p.[ProductKey],
+                st.[StoreKey],
+                i.[StockQuantity],
+                @LoadId
+        FROM    [stg].[Inventory]  AS i
+        JOIN    [dbo].[DimDate]    AS d  ON d.[Date]       = i.[SnapshotDate]
+        JOIN    [dbo].[DimProduct] AS p  ON p.[SKU]        = i.[SKU]
+        JOIN    [dbo].[DimStore]   AS st ON st.[StoreCode] = i.[StoreCode];
+
+        SET @RowsLoaded = @@ROWCOUNT;
+        SET @RowsRejected = @RowsRead - @RowsLoaded;
+
+        UPDATE  [dbo].[LoadLog]
+        SET     [FinishedAt]   = SYSUTCDATETIME(),
+                [Status]       = N'SUCCEEDED',
+                [RowsRead]     = @RowsRead,
+                [RowsLoaded]   = @RowsLoaded,
+                [RowsRejected] = @RowsRejected
+        WHERE   [LoadId] = @LoadId;
+    END TRY
+    BEGIN CATCH
+        UPDATE  [dbo].[LoadLog]
+        SET     [FinishedAt]   = SYSUTCDATETIME(),
+                [Status]       = N'FAILED',
+                [ErrorMessage] = ERROR_MESSAGE()
+        WHERE   [LoadId] = @LoadId;
+        THROW;
+    END CATCH
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[PackageName]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[InventoryRaw]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory].[SnapshotDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory].[StockQuantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory].[SourceFile]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory].[LoadId]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[InventoryRaw].[SnapshotDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[InventoryRaw].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[InventoryRaw].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[InventoryRaw].[StockQuantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[InventoryRaw].[SourceFile]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[StockQuantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[LoadId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[Date]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory].[SnapshotDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Inventory].[StockQuantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[FinishedAt]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[Status]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[RowsRead]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[RowsLoaded]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[RowsRejected]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[LoadId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[ErrorMessage]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[etl]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="250" />
+				<Property Name="Length" Value="2626" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="/*&#xD;&#xA;    Loads stock levels from the landing zone into the warehouse.&#xD;&#xA;&#xD;&#xA;    Step 1: [src].[InventoryRaw] -&gt; [stg].[Inventory]&#xD;&#xA;    Step 2: [stg].[Inventory]    -&gt; [dbo].[FactInventoryDaily]&#xD;&#xA;&#xD;&#xA;    Full reload, same pattern as [etl].[LoadSales].&#xD;&#xA;*/&#xD;&#xA;CREATE PROCEDURE [etl].[LoadInventory]&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[etl].[LoadReturns]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+
+    DECLARE @LoadId INT, @RowsRead INT, @RowsLoaded INT, @RowsRejected INT;
+
+    INSERT INTO [dbo].[LoadLog] ([PackageName]) VALUES (N'etl.LoadReturns');
+    SET @LoadId = CAST(SCOPE_IDENTITY() AS INT);
+
+    BEGIN TRY
+        SELECT @RowsRead = COUNT(*) FROM [src].[ReturnsRaw];
+
+        DELETE FROM [dbo].[FactReturns];
+        DELETE FROM [stg].[Returns];
+
+        INSERT INTO [stg].[Returns]
+            ([ReturnNo], [TransactionNo], [ReturnDate], [SKU], [StoreCode],
+             [Quantity], [ReturnAmount], [ReturnReason], [SourceFile], [LoadId])
+        SELECT  r.[ReturnNo],
+                r.[TransactionNo],
+                TRY_CAST(r.[ReturnDate] AS DATE),
+                r.[SKU],
+                r.[StoreCode],
+                TRY_CAST(r.[Quantity] AS INT),
+                TRY_CAST(r.[ReturnAmount] AS DECIMAL (10, 2)),
+                r.[ReturnReason],
+                r.[SourceFile],
+                @LoadId
+        FROM    [src].[ReturnsRaw] AS r
+        WHERE   r.[ReturnNo]                                IS NOT NULL
+            AND r.[TransactionNo]                           IS NOT NULL
+            AND TRY_CAST(r.[ReturnDate]   AS DATE)          IS NOT NULL
+            AND r.[SKU]                                     IS NOT NULL
+            AND r.[StoreCode]                               IS NOT NULL
+            AND TRY_CAST(r.[Quantity]     AS INT)           IS NOT NULL
+            AND TRY_CAST(r.[ReturnAmount] AS DECIMAL (10, 2)) IS NOT NULL;
+
+        INSERT INTO [dbo].[FactReturns]
+            ([DateKey], [ProductKey], [StoreKey], [ReturnNo], [TransactionNo],
+             [Quantity], [ReturnAmount], [ReturnReason], [LoadId])
+        SELECT  d.[DateKey],
+                p.[ProductKey],
+                st.[StoreKey],
+                t.[ReturnNo],
+                t.[TransactionNo],
+                t.[Quantity],
+                t.[ReturnAmount],
+                t.[ReturnReason],
+                @LoadId
+        FROM    [stg].[Returns]    AS t
+        JOIN    [dbo].[DimDate]    AS d  ON d.[Date]       = t.[ReturnDate]
+        JOIN    [dbo].[DimProduct] AS p  ON p.[SKU]        = t.[SKU]
+        JOIN    [dbo].[DimStore]   AS st ON st.[StoreCode] = t.[StoreCode];
+
+        SET @RowsLoaded = @@ROWCOUNT;
+        SET @RowsRejected = @RowsRead - @RowsLoaded;
+
+        UPDATE  [dbo].[LoadLog]
+        SET     [FinishedAt]   = SYSUTCDATETIME(),
+                [Status]       = N'SUCCEEDED',
+                [RowsRead]     = @RowsRead,
+                [RowsLoaded]   = @RowsLoaded,
+                [RowsRejected] = @RowsRejected
+        WHERE   [LoadId] = @LoadId;
+    END TRY
+    BEGIN CATCH
+        UPDATE  [dbo].[LoadLog]
+        SET     [FinishedAt]   = SYSUTCDATETIME(),
+                [Status]       = N'FAILED',
+                [ErrorMessage] = ERROR_MESSAGE()
+        WHERE   [LoadId] = @LoadId;
+        THROW;
+    END CATCH
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[PackageName]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[ReturnsRaw]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[ReturnNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[ReturnDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[ReturnAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[ReturnReason]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[SourceFile]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[LoadId]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[ReturnsRaw].[ReturnNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[ReturnsRaw].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[ReturnsRaw].[ReturnDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[ReturnsRaw].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[ReturnsRaw].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[ReturnsRaw].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[ReturnsRaw].[ReturnAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[ReturnsRaw].[ReturnReason]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[ReturnsRaw].[SourceFile]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[ReturnNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[ReturnAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[ReturnReason]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[LoadId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[Date]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[ReturnDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[ReturnNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[ReturnAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Returns].[ReturnReason]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[FinishedAt]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[Status]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[RowsRead]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[RowsLoaded]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[RowsRejected]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[LoadId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[ErrorMessage]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[etl]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="241" />
+				<Property Name="Length" Value="3271" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="/*&#xD;&#xA;    Loads customer returns from the landing zone into the warehouse.&#xD;&#xA;&#xD;&#xA;    Step 1: [src].[ReturnsRaw] -&gt; [stg].[Returns]&#xD;&#xA;    Step 2: [stg].[Returns]    -&gt; [dbo].[FactReturns]&#xD;&#xA;&#xD;&#xA;    Full reload, same pattern as [etl].[LoadSales].&#xD;&#xA;*/&#xD;&#xA;CREATE PROCEDURE [etl].[LoadReturns]&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlProcedure" Name="[etl].[LoadSales]">
+			<Property Name="BodyScript">
+				<Value><![CDATA[
+BEGIN
+    SET NOCOUNT ON;
+    SET XACT_ABORT ON;
+
+    DECLARE @LoadId INT, @RowsRead INT, @RowsLoaded INT, @RowsRejected INT;
+
+    INSERT INTO [dbo].[LoadLog] ([PackageName]) VALUES (N'etl.LoadSales');
+    SET @LoadId = CAST(SCOPE_IDENTITY() AS INT);
+
+    BEGIN TRY
+        SELECT @RowsRead = COUNT(*) FROM [src].[SalesRaw];
+
+        DELETE FROM [dbo].[FactSales];
+        DELETE FROM [stg].[Sales];
+
+        -- Step 1: convert text to typed columns. A row that cannot be converted
+        -- is dropped here and shows up in the rejected count below.
+        INSERT INTO [stg].[Sales]
+            ([TransactionNo], [LineNumber], [SalesDate], [SKU], [StoreCode],
+             [Quantity], [UnitPrice], [DiscountAmount], [SourceFile], [LoadId])
+        SELECT  r.[TransactionNo],
+                TRY_CAST(r.[LineNumber] AS INT),
+                TRY_CAST(r.[SalesDate] AS DATE),
+                r.[SKU],
+                r.[StoreCode],
+                TRY_CAST(r.[Quantity] AS INT),
+                TRY_CAST(r.[UnitPrice] AS DECIMAL (10, 2)),
+                ISNULL(TRY_CAST(r.[DiscountAmount] AS DECIMAL (10, 2)), 0),
+                r.[SourceFile],
+                @LoadId
+        FROM    [src].[SalesRaw] AS r
+        WHERE   r.[TransactionNo]                       IS NOT NULL
+            AND TRY_CAST(r.[LineNumber]    AS INT)          IS NOT NULL
+            AND TRY_CAST(r.[SalesDate] AS DATE)         IS NOT NULL
+            AND r.[SKU]                                 IS NOT NULL
+            AND r.[StoreCode]                           IS NOT NULL
+            AND TRY_CAST(r.[Quantity]  AS INT)          IS NOT NULL
+            AND TRY_CAST(r.[UnitPrice] AS DECIMAL (10, 2)) IS NOT NULL;
+
+        -- Step 2: resolve dimension keys and derive the measures.
+        INSERT INTO [dbo].[FactSales]
+            ([DateKey], [ProductKey], [StoreKey], [TransactionNo], [LineNumber],
+             [Quantity], [UnitPrice], [DiscountAmount], [GrossAmount], [NetAmount],
+             [UnitCost], [LoadId])
+        SELECT  d.[DateKey],
+                p.[ProductKey],
+                st.[StoreKey],
+                s.[TransactionNo],
+                s.[LineNumber],
+                s.[Quantity],
+                s.[UnitPrice],
+                s.[DiscountAmount],
+                CAST(s.[Quantity] * s.[UnitPrice] - s.[DiscountAmount] AS DECIMAL (12, 2)),
+                CAST((s.[Quantity] * s.[UnitPrice] - s.[DiscountAmount]) / 1.23 AS DECIMAL (12, 2)),
+                p.[UnitCost],
+                @LoadId
+        FROM    [stg].[Sales]      AS s
+        JOIN    [dbo].[DimDate]    AS d  ON d.[Date]      = s.[SalesDate]
+        JOIN    [dbo].[DimProduct] AS p  ON p.[SKU]       = s.[SKU]
+        JOIN    [dbo].[DimStore]   AS st ON st.[StoreCode] = s.[StoreCode];
+
+        SET @RowsLoaded = @@ROWCOUNT;
+        SET @RowsRejected = @RowsRead - @RowsLoaded;
+
+        UPDATE  [dbo].[LoadLog]
+        SET     [FinishedAt]   = SYSUTCDATETIME(),
+                [Status]       = N'SUCCEEDED',
+                [RowsRead]     = @RowsRead,
+                [RowsLoaded]   = @RowsLoaded,
+                [RowsRejected] = @RowsRejected
+        WHERE   [LoadId] = @LoadId;
+    END TRY
+    BEGIN CATCH
+        UPDATE  [dbo].[LoadLog]
+        SET     [FinishedAt]   = SYSUTCDATETIME(),
+                [Status]       = N'FAILED',
+                [ErrorMessage] = ERROR_MESSAGE()
+        WHERE   [LoadId] = @LoadId;
+        THROW;
+    END CATCH
+END]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="BodyDependencies">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[PackageName]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[int]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[SalesRaw]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[LineNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[SalesDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[UnitPrice]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[DiscountAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[SourceFile]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[LoadId]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[SalesRaw].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[SalesRaw].[LineNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[SalesRaw].[SalesDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[SalesRaw].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[SalesRaw].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[SalesRaw].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[SalesRaw].[UnitPrice]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[SalesRaw].[DiscountAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[src].[SalesRaw].[SourceFile]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[LineNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[UnitPrice]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[DiscountAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[GrossAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[NetAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[LoadId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[Date]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[SalesDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[LineNumber]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[UnitPrice]" />
+				</Entry>
+				<Entry>
+					<References Name="[stg].[Sales].[DiscountAmount]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[decimal]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[decimal]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[FinishedAt]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[Status]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[RowsRead]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[RowsLoaded]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[RowsRejected]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[LoadId]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[LoadLog].[ErrorMessage]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[etl]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="400" />
+				<Property Name="Length" Value="3947" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="/*&#xD;&#xA;    Loads sales from the landing zone into the warehouse.&#xD;&#xA;&#xD;&#xA;    Step 1: [src].[SalesRaw] -&gt; [stg].[Sales]      (type conversion, validation)&#xD;&#xA;    Step 2: [stg].[Sales]    -&gt; [dbo].[FactSales]  (dimension lookup, measures)&#xD;&#xA;&#xD;&#xA;    Full reload: both targets are truncated first, so the procedure can be&#xD;&#xA;    re-run at any time and always reflects the current content of the landing&#xD;&#xA;    zone.&#xD;&#xA;*/&#xD;&#xA;CREATE PROCEDURE [etl].[LoadSales]&#xD;&#xA;AS" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlSchema" Name="[reporting]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlView" Name="[reporting].[vw_MarginAnalysis]">
+			<Property Name="QueryScript">
+				<Value><![CDATA[
+SELECT  d.[YearMonth],
+        p.[StyleCode],
+        p.[StyleName],
+        p.[Department],
+        p.[Category],
+        SUM(f.[Quantity])                   AS [Units],
+        SUM(f.[NetAmount])                  AS [NetRevenue],
+        SUM(f.[Quantity] * f.[UnitCost])    AS [CostAmount],
+        SUM(f.[NetAmount]) - SUM(f.[Quantity] * f.[UnitCost]) AS [GrossMargin],
+        CASE WHEN SUM(f.[NetAmount]) = 0 THEN NULL
+             ELSE CAST(100.0 * (SUM(f.[NetAmount]) - SUM(f.[Quantity] * f.[UnitCost]))
+                       / SUM(f.[NetAmount]) AS DECIMAL (5, 2))
+        END                                 AS [GrossMarginPct]
+FROM    [dbo].[FactSales]  AS f
+JOIN    [dbo].[DimDate]    AS d ON d.[DateKey]    = f.[DateKey]
+JOIN    [dbo].[DimProduct] AS p ON p.[ProductKey] = f.[ProductKey]
+GROUP BY d.[YearMonth], p.[StyleCode], p.[StyleName], p.[Department], p.[Category]]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_MarginAnalysis].[YearMonth]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[YearMonth]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_MarginAnalysis].[StyleCode]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[StyleCode]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_MarginAnalysis].[StyleName]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[StyleName]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_MarginAnalysis].[Department]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Department]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_MarginAnalysis].[Category]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Category]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_MarginAnalysis].[Units]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_MarginAnalysis].[NetRevenue]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_MarginAnalysis].[CostAmount]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_MarginAnalysis].[GrossMargin]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_MarginAnalysis].[GrossMarginPct]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="QueryDependencies">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[YearMonth]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[StyleCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[StyleName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Department]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[NetAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[decimal]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[reporting]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="120" />
+				<Property Name="Length" Value="1069" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="/*&#xD;&#xA;    Margin by style and month, calculated from the sold lines.&#xD;&#xA;&#xD;&#xA;    Used by the merchandising margin review.&#xD;&#xA;*/&#xD;&#xA;CREATE VIEW [reporting].[vw_MarginAnalysis]&#xD;&#xA;AS" />
+				<Property Name="FooterContents" Value=";" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlView" Name="[reporting].[vw_ProductPerformance]">
+			<Property Name="QueryScript">
+				<Value><![CDATA[
+WITH [SeasonStart] AS
+(
+    SELECT MIN([DateKey]) AS [DateKey] FROM [dbo].[FactInventoryDaily]
+),
+[StockNow] AS
+(
+    SELECT  i.[ProductKey],
+            SUM(i.[StockQuantity]) AS [StockQuantity]
+    FROM    [dbo].[FactInventoryDaily] AS i
+    WHERE   i.[DateKey] = (SELECT MAX([DateKey]) FROM [dbo].[FactInventoryDaily])
+    GROUP BY i.[ProductKey]
+),
+[SoldTotal] AS
+(
+    SELECT  f.[ProductKey],
+            SUM(f.[Quantity])  AS [Units],
+            SUM(f.[NetAmount]) AS [NetAmount]
+    FROM    [dbo].[FactSales] AS f
+    GROUP BY f.[ProductKey]
+),
+[SoldSeason] AS
+(
+    SELECT  f.[ProductKey],
+            SUM(f.[Quantity]) AS [Units]
+    FROM    [dbo].[FactSales] AS f
+    WHERE   f.[DateKey] >= (SELECT [DateKey] FROM [SeasonStart])
+    GROUP BY f.[ProductKey]
+),
+[Returned] AS
+(
+    SELECT  r.[ProductKey],
+            SUM(r.[Quantity])     AS [Units],
+            SUM(r.[ReturnAmount]) AS [ReturnAmount]
+    FROM    [dbo].[FactReturns] AS r
+    GROUP BY r.[ProductKey]
+)
+SELECT  p.[SKU],
+        p.[StyleCode],
+        p.[StyleName],
+        p.[Department],
+        p.[Category],
+        p.[Color],
+        p.[Size],
+        p.[ListPrice],
+        ISNULL(t.[Units], 0)            AS [UnitsSoldTotal],
+        ISNULL(t.[NetAmount], 0)        AS [NetRevenueTotal],
+        ISNULL(ss.[Units], 0)           AS [UnitsSoldSeason],
+        ISNULL(rt.[Units], 0)           AS [UnitsReturned],
+        ISNULL(rt.[ReturnAmount], 0)    AS [ReturnAmount],
+        ISNULL(sn.[StockQuantity], 0)   AS [StockOnHand],
+        CASE WHEN ISNULL(ss.[Units], 0) + ISNULL(sn.[StockQuantity], 0) = 0
+             THEN NULL
+             ELSE CAST(100.0 * ISNULL(ss.[Units], 0)
+                       / (ISNULL(ss.[Units], 0) + ISNULL(sn.[StockQuantity], 0)) AS DECIMAL (5, 2))
+        END                             AS [SellThroughPct]
+FROM    [dbo].[DimProduct] AS p
+LEFT JOIN [SoldTotal]  AS t  ON t.[ProductKey]  = p.[ProductKey]
+LEFT JOIN [SoldSeason] AS ss ON ss.[ProductKey] = p.[ProductKey]
+LEFT JOIN [Returned]   AS rt ON rt.[ProductKey] = p.[ProductKey]
+LEFT JOIN [StockNow]   AS sn ON sn.[ProductKey] = p.[ProductKey]]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[SKU]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[SKU]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[StyleCode]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[StyleCode]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[StyleName]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[StyleName]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[Department]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Department]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[Category]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Category]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[Color]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Color]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[Size]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Size]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[ListPrice]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[ListPrice]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[UnitsSoldTotal]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[NetRevenueTotal]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[UnitsSoldSeason]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[UnitsReturned]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[ReturnAmount]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[StockOnHand]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[SellThroughPct]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="DynamicObjects">
+				<Entry>
+					<Element Type="SqlDynamicColumnSource" Name="[reporting].[vw_ProductPerformance].[CTE1].[SeasonStart]">
+						<Relationship Name="Columns">
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[SeasonStart].[DateKey]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlDynamicColumnSource" Name="[reporting].[vw_ProductPerformance].[CTE1].[StockNow]">
+						<Relationship Name="Columns">
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[StockNow].[ProductKey]">
+									<Relationship Name="ExpressionDependencies">
+										<Entry>
+											<References Name="[dbo].[FactInventoryDaily].[ProductKey]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[StockNow].[StockQuantity]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlDynamicColumnSource" Name="[reporting].[vw_ProductPerformance].[CTE1].[SoldTotal]">
+						<Relationship Name="Columns">
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[SoldTotal].[ProductKey]">
+									<Relationship Name="ExpressionDependencies">
+										<Entry>
+											<References Name="[dbo].[FactSales].[ProductKey]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[SoldTotal].[Units]" />
+							</Entry>
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[SoldTotal].[NetAmount]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlDynamicColumnSource" Name="[reporting].[vw_ProductPerformance].[CTE1].[SoldSeason]">
+						<Relationship Name="Columns">
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[SoldSeason].[ProductKey]">
+									<Relationship Name="ExpressionDependencies">
+										<Entry>
+											<References Name="[dbo].[FactSales].[ProductKey]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[SoldSeason].[Units]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlDynamicColumnSource" Name="[reporting].[vw_ProductPerformance].[CTE1].[Returned]">
+						<Relationship Name="Columns">
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[Returned].[ProductKey]">
+									<Relationship Name="ExpressionDependencies">
+										<Entry>
+											<References Name="[dbo].[FactReturns].[ProductKey]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[Returned].[Units]" />
+							</Entry>
+							<Entry>
+								<Element Type="SqlComputedColumn" Name="[reporting].[vw_ProductPerformance].[CTE1].[Returned].[ReturnAmount]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="QueryDependencies">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[StockQuantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[NetAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[ReturnAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactReturns].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[SKU]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[StyleCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[StyleName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Department]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Color]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Size]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ListPrice]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[decimal]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[reporting]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="306" />
+				<Property Name="Length" Value="2533" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="/*&#xD;&#xA;    Product scorecard at SKU level.&#xD;&#xA;&#xD;&#xA;    [UnitsSoldSeason] and [SellThroughPct] cover the current season only, i.e.&#xD;&#xA;    the period for which the stock feed has data - sell-through compares what&#xD;&#xA;    was sold with what is still on the shelf, so both sides have to describe&#xD;&#xA;    the same intake.&#xD;&#xA;*/&#xD;&#xA;CREATE VIEW [reporting].[vw_ProductPerformance]&#xD;&#xA;AS" />
+				<Property Name="FooterContents" Value=";" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlView" Name="[reporting].[vw_SalesDaily]">
+			<Property Name="QueryScript">
+				<Value><![CDATA[
+SELECT  d.[Date]                            AS [SalesDate],
+        d.[YearMonth],
+        d.[YearWeek],
+        st.[StoreCode],
+        st.[StoreName],
+        st.[Channel],
+        st.[Region],
+        p.[Department],
+        p.[Category],
+        SUM(f.[Quantity])                   AS [Units],
+        COUNT(DISTINCT f.[TransactionNo])   AS [Transactions],
+        SUM(f.[GrossAmount])                AS [GrossAmount],
+        SUM(f.[DiscountAmount])             AS [DiscountAmount],
+        SUM(f.[NetAmount])                  AS [NetAmount],
+        SUM(f.[Quantity] * f.[UnitCost])    AS [CostAmount]
+FROM    [dbo].[FactSales]   AS f
+JOIN    [dbo].[DimDate]     AS d  ON d.[DateKey]    = f.[DateKey]
+JOIN    [dbo].[DimStore]    AS st ON st.[StoreKey]  = f.[StoreKey]
+JOIN    [dbo].[DimProduct]  AS p  ON p.[ProductKey] = f.[ProductKey]
+GROUP BY d.[Date], d.[YearMonth], d.[YearWeek],
+         st.[StoreCode], st.[StoreName], st.[Channel], st.[Region],
+         p.[Department], p.[Category]]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[SalesDate]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[Date]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[YearMonth]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[YearMonth]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[YearWeek]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[YearWeek]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[StoreCode]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[StoreCode]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[StoreName]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[StoreName]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[Channel]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[Channel]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[Region]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[Region]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[Department]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Department]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[Category]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Category]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[Units]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[Transactions]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[GrossAmount]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[DiscountAmount]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[NetAmount]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesDaily].[CostAmount]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="QueryDependencies">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[Date]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[YearMonth]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[YearWeek]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[Channel]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[Region]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Department]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[GrossAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[DiscountAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[NetAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[UnitCost]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[Date]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[reporting]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="189" />
+				<Property Name="Length" Value="1252" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="/*&#xD;&#xA;    Daily sales, one row per trading day / store / product category.&#xD;&#xA;&#xD;&#xA;    The base view for day-level questions; roll it up on [YearMonth] or&#xD;&#xA;    [YearWeek] for longer periods.&#xD;&#xA;*/&#xD;&#xA;CREATE VIEW [reporting].[vw_SalesDaily]&#xD;&#xA;AS" />
+				<Property Name="FooterContents" Value=";" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlView" Name="[reporting].[vw_SalesWeekly]">
+			<Property Name="QueryScript">
+				<Value><![CDATA[
+SELECT  d.[IsoYear],
+        d.[IsoWeek],
+        d.[YearWeek],
+        MIN(d.[Date])                       AS [WeekStart],
+        MAX(d.[Date])                       AS [WeekEnd],
+        st.[Channel],
+        st.[Region],
+        p.[Department],
+        p.[Category],
+        SUM(f.[Quantity])                   AS [Units],
+        COUNT(DISTINCT f.[TransactionNo])   AS [Transactions],
+        SUM(f.[GrossAmount])                AS [GrossAmount],
+        SUM(f.[DiscountAmount])             AS [DiscountAmount],
+        SUM(f.[NetAmount])                  AS [NetAmount],
+        SUM(f.[Quantity] * f.[UnitCost])    AS [CostAmount]
+FROM    [dbo].[FactSales]   AS f
+JOIN    [dbo].[DimDate]     AS d  ON d.[DateKey]    = f.[DateKey]
+JOIN    [dbo].[DimStore]    AS st ON st.[StoreKey]  = f.[StoreKey]
+JOIN    [dbo].[DimProduct]  AS p  ON p.[ProductKey] = f.[ProductKey]
+GROUP BY d.[IsoYear], d.[IsoWeek], d.[YearWeek],
+         st.[Channel], st.[Region], p.[Department], p.[Category]]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[IsoYear]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[IsoYear]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[IsoWeek]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[IsoWeek]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[YearWeek]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[YearWeek]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[WeekStart]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[WeekEnd]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[Channel]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[Channel]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[Region]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[Region]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[Department]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Department]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[Category]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Category]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[Units]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[Transactions]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[GrossAmount]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[DiscountAmount]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[NetAmount]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_SalesWeekly].[CostAmount]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="QueryDependencies">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[IsoYear]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[IsoWeek]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[YearWeek]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[Date]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[Channel]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[Region]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Department]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[GrossAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[DiscountAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[NetAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[UnitCost]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[reporting]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="184" />
+				<Property Name="Length" Value="1236" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="/*&#xD;&#xA;    Weekly trading numbers by channel, region and category. Weeks follow the&#xD;&#xA;    ISO-8601 calendar (Monday-Sunday), which is the trading week used in the&#xD;&#xA;    Monday report.&#xD;&#xA;*/&#xD;&#xA;CREATE VIEW [reporting].[vw_SalesWeekly]&#xD;&#xA;AS" />
+				<Property Name="FooterContents" Value=";" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlView" Name="[reporting].[vw_StockAvailability]">
+			<Property Name="QueryScript">
+				<Value><![CDATA[
+SELECT  d.[Date]        AS [SnapshotDate],
+        d.[YearMonth],
+        d.[YearWeek],
+        st.[StoreCode],
+        st.[StoreName],
+        p.[Department],
+        p.[Category],
+        COUNT(*)                                                    AS [SkuCount],
+        SUM(CASE WHEN i.[StockQuantity] > 0 THEN 1 ELSE 0 END)      AS [SkuInStock],
+        CAST(100.0 * SUM(CASE WHEN i.[StockQuantity] > 0 THEN 1 ELSE 0 END) / COUNT(*)
+             AS DECIMAL (5, 2))                                     AS [AvailabilityPct],
+        SUM(i.[StockQuantity])                                      AS [StockQuantity]
+FROM    [dbo].[FactInventoryDaily] AS i
+JOIN    [dbo].[DimDate]            AS d  ON d.[DateKey]    = i.[DateKey]
+JOIN    [dbo].[DimStore]           AS st ON st.[StoreKey]  = i.[StoreKey]
+JOIN    [dbo].[DimProduct]         AS p  ON p.[ProductKey] = i.[ProductKey]
+GROUP BY d.[Date], d.[YearMonth], d.[YearWeek],
+         st.[StoreCode], st.[StoreName], p.[Department], p.[Category]]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[SnapshotDate]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[Date]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[YearMonth]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[YearMonth]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[YearWeek]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[YearWeek]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[StoreCode]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[StoreCode]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[StoreName]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[StoreName]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[Department]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Department]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[Category]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimProduct].[Category]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[SkuCount]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[SkuInStock]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[AvailabilityPct]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StockAvailability].[StockQuantity]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="QueryDependencies">
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[ProductKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[Date]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[YearMonth]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[YearWeek]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Department]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimProduct].[Category]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactInventoryDaily].[StockQuantity]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[decimal]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[Date]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[reporting]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="244" />
+				<Property Name="Length" Value="1308" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="/*&#xD;&#xA;    Stock availability: for a given day, store and category, the share of SKUs&#xD;&#xA;    that had stock left at the close of trading.&#xD;&#xA;&#xD;&#xA;    Built from the stock feed, so a day only appears for a store that actually&#xD;&#xA;    reported that day.&#xD;&#xA;*/&#xD;&#xA;CREATE VIEW [reporting].[vw_StockAvailability]&#xD;&#xA;AS" />
+				<Property Name="FooterContents" Value=";" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlView" Name="[reporting].[vw_StoreScorecard]">
+			<Property Name="QueryScript">
+				<Value><![CDATA[
+SELECT  st.[StoreCode],
+        st.[StoreName],
+        st.[City],
+        st.[Region],
+        st.[Channel],
+        st.[Format],
+        st.[SalesAreaM2],
+        d.[YearMonth],
+        SUM(f.[NetAmount])                                  AS [NetRevenue],
+        SUM(f.[Quantity])                                   AS [Units],
+        COUNT(DISTINCT f.[TransactionNo])                   AS [Transactions],
+        CAST(SUM(f.[NetAmount]) / COUNT(DISTINCT f.[TransactionNo]) AS DECIMAL (10, 2))
+                                                            AS [AvgBasketValue],
+        CAST(1.0 * SUM(f.[Quantity]) / COUNT(DISTINCT f.[TransactionNo]) AS DECIMAL (10, 2))
+                                                            AS [UnitsPerTransaction],
+        CAST(SUM(f.[NetAmount]) / st.[SalesAreaM2] AS DECIMAL (10, 2))
+                                                            AS [NetRevenuePerM2]
+FROM    [dbo].[FactSales] AS f
+JOIN    [dbo].[DimStore]  AS st ON st.[StoreKey] = f.[StoreKey]
+JOIN    [dbo].[DimDate]   AS d  ON d.[DateKey]   = f.[DateKey]
+WHERE   st.[SalesAreaM2] > 0
+GROUP BY st.[StoreCode], st.[StoreName], st.[City], st.[Region], st.[Channel],
+         st.[Format], st.[SalesAreaM2], d.[YearMonth]]]></Value>
+			</Property>
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[StoreCode]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[StoreCode]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[StoreName]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[StoreName]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[City]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[City]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[Region]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[Region]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[Channel]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[Channel]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[Format]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[Format]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[SalesAreaM2]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimStore].[SalesAreaM2]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[YearMonth]">
+						<Relationship Name="ExpressionDependencies">
+							<Entry>
+								<References Name="[dbo].[DimDate].[YearMonth]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[NetRevenue]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[Units]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[Transactions]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[AvgBasketValue]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[UnitsPerTransaction]" />
+				</Entry>
+				<Entry>
+					<Element Type="SqlComputedColumn" Name="[reporting].[vw_StoreScorecard].[NetRevenuePerM2]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="QueryDependencies">
+				<Entry>
+					<References Name="[dbo].[FactSales]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[StoreKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[DateKey]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreCode]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[StoreName]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[City]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[Region]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[Channel]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[Format]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimStore].[SalesAreaM2]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[DimDate].[YearMonth]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[NetAmount]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[Quantity]" />
+				</Entry>
+				<Entry>
+					<References Name="[dbo].[FactSales].[TransactionNo]" />
+				</Entry>
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[decimal]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[reporting]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SysCommentsObjectAnnotation">
+				<Property Name="CreateOffset" Value="187" />
+				<Property Name="Length" Value="1486" />
+				<Property Name="StartLine" Value="1" />
+				<Property Name="StartColumn" Value="1" />
+				<Property Name="HeaderContents" Value="/*&#xD;&#xA;    Monthly store scorecard: the productivity measures the area managers get&#xD;&#xA;    every month - revenue, average basket, units per transaction and revenue&#xD;&#xA;    per square metre.&#xD;&#xA;*/&#xD;&#xA;CREATE VIEW [reporting].[vw_StoreScorecard]&#xD;&#xA;AS" />
+				<Property Name="FooterContents" Value=";" />
+			</Annotation>
+		</Element>
+		<Element Type="SqlSchema" Name="[src]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[src].[DF_src_InventoryRaw_ExtractedAt]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(SYSUTCDATETIME())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[src].[InventoryRaw]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[src].[InventoryRaw].[ExtractedAt]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="24" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[src].[DF_src_ReturnsRaw_ExtractedAt]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(SYSUTCDATETIME())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[src].[ReturnsRaw]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[src].[ReturnsRaw].[ExtractedAt]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="25" />
+		</Element>
+		<Element Type="SqlDefaultConstraint" Name="[src].[DF_src_SalesRaw_ExtractedAt]">
+			<Property Name="DefaultExpressionScript">
+				<Value><![CDATA[(SYSUTCDATETIME())]]></Value>
+			</Property>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[src].[SalesRaw]" />
+				</Entry>
+			</Relationship>
+			<Relationship Name="ForColumn">
+				<Entry>
+					<References Name="[src].[SalesRaw].[ExtractedAt]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="26" />
+		</Element>
+		<Element Type="SqlTable" Name="[src].[InventoryRaw]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[InventoryRaw].[RawId]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[InventoryRaw].[SnapshotDate]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[InventoryRaw].[SKU]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[InventoryRaw].[StoreCode]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[InventoryRaw].[StockQuantity]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[InventoryRaw].[SourceFile]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[InventoryRaw].[ExtractedAt]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="3" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime2]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="24" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[src]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="27" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[src].[PK_src_InventoryRaw]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[src].[InventoryRaw].[RawId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[src].[InventoryRaw]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="27" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[src].[PK_src_ReturnsRaw]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[src].[ReturnsRaw].[RawId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[src].[ReturnsRaw]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="28" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[src].[PK_src_SalesRaw]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[src].[SalesRaw].[RawId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[src].[SalesRaw]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="29" />
+		</Element>
+		<Element Type="SqlTable" Name="[src].[ReturnsRaw]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[RawId]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[ReturnNo]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[TransactionNo]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[ReturnDate]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[SKU]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[StoreCode]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[Quantity]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[ReturnAmount]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[ReturnReason]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[SourceFile]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[ReturnsRaw].[ExtractedAt]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="3" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime2]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="25" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[src]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="28" />
+		</Element>
+		<Element Type="SqlTable" Name="[src].[SalesRaw]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[RawId]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[TransactionNo]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[LineNumber]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[SalesDate]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[SKU]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[StoreCode]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[Quantity]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[UnitPrice]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[DiscountAmount]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[SourceFile]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[src].[SalesRaw].[ExtractedAt]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="3" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[datetime2]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+						<AttachedAnnotation Disambiguator="26" />
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[src]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="29" />
+		</Element>
+		<Element Type="SqlIndex" Name="[src].[SalesRaw].[IX_src_SalesRaw_SourceFile]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[src].[SalesRaw].[SourceFile]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[src].[SalesRaw]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlSchema" Name="[stg]">
+			<Relationship Name="Authorizer">
+				<Entry>
+					<References ExternalSource="BuiltIns" Name="[dbo]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlTable" Name="[stg].[Inventory]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Inventory].[StagingRowId]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Inventory].[SnapshotDate]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Inventory].[SKU]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Inventory].[StoreCode]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Inventory].[StockQuantity]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Inventory].[SourceFile]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Inventory].[LoadId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[stg]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="30" />
+		</Element>
+		<Element Type="SqlIndex" Name="[stg].[Inventory].[IX_stg_Inventory_SnapshotDate]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[stg].[Inventory].[SnapshotDate]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[stg].[Inventory]" />
+				</Entry>
+			</Relationship>
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[stg].[PK_stg_Inventory]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[stg].[Inventory].[StagingRowId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[stg].[Inventory]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="30" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[stg].[PK_stg_Returns]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[stg].[Returns].[StagingRowId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[stg].[Returns]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="31" />
+		</Element>
+		<Element Type="SqlPrimaryKeyConstraint" Name="[stg].[PK_stg_Sales]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[stg].[Sales].[StagingRowId]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="DefiningTable">
+				<Entry>
+					<References Name="[stg].[Sales]" />
+				</Entry>
+			</Relationship>
+			<Annotation Type="SqlInlineConstraintAnnotation" Disambiguator="32" />
+		</Element>
+		<Element Type="SqlTable" Name="[stg].[Returns]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[StagingRowId]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[ReturnNo]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[TransactionNo]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[ReturnDate]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[SKU]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[StoreCode]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[Quantity]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[ReturnAmount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[ReturnReason]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[SourceFile]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Returns].[LoadId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[stg]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="31" />
+		</Element>
+		<Element Type="SqlTable" Name="[stg].[Sales]">
+			<Property Name="IsAnsiNullsOn" Value="True" />
+			<Relationship Name="Columns">
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[StagingRowId]">
+						<Property Name="IsNullable" Value="False" />
+						<Property Name="IsIdentity" Value="True" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[bigint]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[TransactionNo]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="30" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[LineNumber]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[SalesDate]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[date]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[SKU]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="40" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[StoreCode]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="20" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[Quantity]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[UnitPrice]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[DiscountAmount]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Scale" Value="2" />
+									<Property Name="Precision" Value="10" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[decimal]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[SourceFile]">
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Property Name="Length" Value="100" />
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[nvarchar]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+				<Entry>
+					<Element Type="SqlSimpleColumn" Name="[stg].[Sales].[LoadId]">
+						<Property Name="IsNullable" Value="False" />
+						<Relationship Name="TypeSpecifier">
+							<Entry>
+								<Element Type="SqlTypeSpecifier">
+									<Relationship Name="Type">
+										<Entry>
+											<References ExternalSource="BuiltIns" Name="[int]" />
+										</Entry>
+									</Relationship>
+								</Element>
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="Schema">
+				<Entry>
+					<References Name="[stg]" />
+				</Entry>
+			</Relationship>
+			<AttachedAnnotation Disambiguator="32" />
+		</Element>
+		<Element Type="SqlIndex" Name="[stg].[Sales].[IX_stg_Sales_SalesDate]">
+			<Relationship Name="ColumnSpecifications">
+				<Entry>
+					<Element Type="SqlIndexedColumnSpecification">
+						<Relationship Name="Column">
+							<Entry>
+								<References Name="[stg].[Sales].[SalesDate]" />
+							</Entry>
+						</Relationship>
+					</Element>
+				</Entry>
+			</Relationship>
+			<Relationship Name="IndexedObject">
+				<Entry>
+					<References Name="[stg].[Sales]" />
+				</Entry>
+			</Relationship>
+		</Element>
+	</Model>
+</DataSchemaModel>

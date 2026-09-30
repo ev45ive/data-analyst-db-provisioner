@@ -1,0 +1,5 @@
+C:\Projects\__EXPERIMENTS\WORKSHOP_DESIGNER\nowa-edycja-retaildw\provisioner\RetailDW\bin\Debug\RetailDW.dacpac
+C:\Projects\__EXPERIMENTS\WORKSHOP_DESIGNER\nowa-edycja-retaildw\provisioner\RetailDW\obj\Debug\Model.xml
+C:\Projects\__EXPERIMENTS\WORKSHOP_DESIGNER\nowa-edycja-retaildw\provisioner\RetailDW\obj\Debug\refactor.xml
+C:\Projects\__EXPERIMENTS\WORKSHOP_DESIGNER\nowa-edycja-retaildw\provisioner\RetailDW\obj\Debug\postdeploy.sql
+C:\Projects\__EXPERIMENTS\WORKSHOP_DESIGNER\nowa-edycja-retaildw\provisioner\RetailDW\obj\Debug\predeploy.sql
